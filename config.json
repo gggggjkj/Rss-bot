@@ -1,0 +1,11 @@
+{
+  "rsshub_base_url": "",
+  "feeds": [
+    {"name": "Hacker News", "url": "https://hnrss.org/frontpage"},
+    {"name": "MIT Technology Review AI", "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed/"},
+    {"name": "The Verge AI", "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"}
+  ],
+  "max_articles": 20,
+  "max_text_chars": 1200,
+  "model": "deepseek-chat"
+}
