@@ -21,7 +21,7 @@
 python3 digest.py --dry-run
 ```
 
-要實際推送，請在終端機安全設定 `DEEPSEEK_API_KEY` 和 `DISCORD_WEBHOOK_URL` 環境變數，再執行 `python3 digest.py`。如使用 RSSHub 路由，也可設定 `RSSHUB_BASE_URL`。自訂設定檔可用 `--config path/to/config.json`。網路環境必須能連線到來源、DeepSeek 和 Discord。
+要實際推送，複製 `.env.example` 為 `.env`，填入 `DEEPSEEK_API_KEY` 和 `DISCORD_WEBHOOK_URL`，再執行 `python3 digest.py`。如使用 RSSHub 路由，也可填入 `RSSHUB_BASE_URL`。程式會自動讀取執行目錄的 `.env`；已存在的環境變數優先。請勿上傳 `.env` 或分享其中的憑證。GitHub Actions 不會自動匯入 `.env`，仍須在儲存庫設定 Actions Secrets。自訂設定檔可用 `--config path/to/config.json`。網路環境必須能連線到來源、DeepSeek 和 Discord。
 
 執行測試：
 
