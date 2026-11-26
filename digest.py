@@ -153,6 +153,26 @@ def send_discord(webhook, text):
         request(webhook, {"content": chunk, "allowed_mentions": {"parse": []}}, {"Content-Type": "application/json"})
 
 
+def load_env(path=".env"):
+    """Load simple KEY=VALUE settings without overriding existing environment."""
+    if not os.path.isfile(path):
+        return
+    with open(path, encoding="utf-8") as file:
+        for number, line in enumerate(file, 1):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            key, sep, value = line.partition("=")
+            key = key.strip()
+            if not sep or key not in {"DEEPSEEK_API_KEY", "DISCORD_WEBHOOK_URL", "RSSHUB_BASE_URL"}:
+                raise ValueError(f".env 第 {number} 行格式或變數名稱不正確")
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in ("\"", "'"):
+                value = value[1:-1]
+            if value:
+                os.environ.setdefault(key, value)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="config.json")
@@ -160,6 +180,7 @@ def main():
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     try:
+        load_env()
         with open(args.config, encoding="utf-8") as file:
             config = json.load(file)
         if not args.dry_run:
